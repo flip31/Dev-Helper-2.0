@@ -39,18 +39,18 @@ export default function Welcome() {
           <p className="font-bold text-[#0c566e]">Dev Helper</p>
         </div>
         <ul className="flex gap-8">
-          <li className="text-black cursor-pointer" onClick={() => scrollToSection("features")}>Features</li>
-          <li className="text-black cursor-pointer" onClick={() => scrollToSection("about")}>About</li>
-          <li className="text-black cursor-pointer" onClick={() => scrollToSection("contact")}>Contact</li>
+          <li className="text-[#0c566e]  cursor-pointer hover:font-bold" onClick={() => scrollToSection("features")}>Features</li>
+          <li className="text-[#0c566e]  cursor-pointer hover:font-bold" onClick={() => scrollToSection("about")}>About</li>
+          <li className="text-[#0c566e]  cursor-pointer hover:font-bold" onClick={() => scrollToSection("contact")}>Contact</li>
         </ul>
         <div className="flex gap-2">
-          <button onClick={() => navigate("/login")} className="text-black">Sign In</button>
-          <button onClick={() => navigate("/signup")} className="text-black font-semibold">Sign Up</button>
+          <button onClick={() => navigate("/login")} className="text-[#0c566e]">Sign In</button>
+          <button onClick={() => navigate("/signup")} className="text-[#0c566e] font-semibold shadow border-1 border-gray-300 rounded w-20 h-7">Sign Up</button>
         </div>
       </div>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center items-center text-center mt-0" data-aos="fade-in">
+      <section className="min-h-screen flex flex-col justify-center items-center text-center mt-0" data-aos="fade-up">
         <img src="/duck.svg" alt="Dev Helper" className="w-20 h-20 mb-6" data-aos="fade-up" />
         <h1 className="text-5xl font-bold text-[#0c566e] mb-4" data-aos="fade-up">Create, Manage and Track</h1>
         <p className="text-xl text-gray-600 mb-8" data-aos="fade-up">
@@ -58,13 +58,15 @@ export default function Welcome() {
         </p>
         <div className="flex gap-4">
           <button
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate("/signup")}
+            data-aos="fade-right"
             className="bg-cyan-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-cyan-700 transition shadow-lg"
           >
             Get Started
           </button>
           <button
             onClick={() => navigate("/login")}
+            data-aos="fade-left"
             className="bg-white text-[#0c566e] px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg border border-gray-200"
           >
             Sign In
@@ -73,12 +75,12 @@ export default function Welcome() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-gray-100 min-h-screen">
+      <section id="features" className="py-20 bg-gray-100 min-h-screen" data-aos="fade-up">
         <h2 className="text-4xl font-bold text-center text-[#0c566e] mb-10">Features</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4">
-          <FeatureCard title="Project Management" description="Easily manage all your projects in one place." icon="🗂️" />
-          <FeatureCard title="Track Deadlines" description="Never miss deadlines with our smart tracking." icon="⏰" />
-          <FeatureCard title="Boost Productivity" description="Optimize your workflow and stay productive." icon="🚀" />
+          <FeatureCard title="Project Management" description="Easily manage all your projects in one place." icon="" />
+          <FeatureCard title="Track Deadlines" description="Never miss deadlines with our smart tracking." icon="" />
+          <FeatureCard title="Boost Productivity" description="Optimize your workflow and stay productive." icon="" />
         </div>
       </section>
 
@@ -103,7 +105,7 @@ export default function Welcome() {
 
 function FeatureCard({ icon, title, description }) {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition text-center">
+    <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition text-center" data-aos="fade-in">
       <div className="text-5xl mb-3">{icon}</div>
       <h3 className="text-lg font-semibold text-[#0c566e] mb-2">{title}</h3>
       <p className="text-gray-600 text-sm">{description}</p>
