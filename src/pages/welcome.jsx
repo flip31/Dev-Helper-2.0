@@ -1,3 +1,4 @@
+// pages/Welcome.jsx
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { supabase } from "../services/supabase"
@@ -31,26 +32,27 @@ export default function Welcome() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cyan-50 to-blue-100 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-cyan-50 to-blue-100">
       {/* Navbar */}
-      <div className="flex justify-between items-center sticky top-0 z-40 bg-opacity-80 backdrop-blur-sm px-4 py-3">
+      <div className="fixed top-0 left-0 right-0 z-40 bg-opacity-80 backdrop-blur-sm px-4 py-3 flex justify-between items-center">
         <div className="flex items-center gap-3">
           <img src="/duck.svg" alt="Dev Helper" className="w-10 h-10" />
           <p className="font-bold text-[#0c566e]">Dev Helper</p>
         </div>
         <ul className="flex gap-8">
-          <li className="text-[#0c566e]  cursor-pointer hover:font-bold" onClick={() => scrollToSection("features")}>Features</li>
-          <li className="text-[#0c566e]  cursor-pointer hover:font-bold" onClick={() => scrollToSection("about")}>About</li>
-          <li className="text-[#0c566e]  cursor-pointer hover:font-bold" onClick={() => scrollToSection("contact")}>Contact</li>
+          <li className="text-[#0c566e] cursor-pointer hover:scale-110 transition duration-300" onClick={() => scrollToSection("home")}>Home</li>
+          <li className="text-[#0c566e] cursor-pointer hover:scale-110 transition duration-300" onClick={() => scrollToSection("features")}>Features</li>
+          <li className="text-[#0c566e] cursor-pointer hover:scale-110 transition duration-300" onClick={() => scrollToSection("about")}>About</li>
+          <li className="text-[#0c566e] cursor-pointer hover:scale-110 transition duration-300" onClick={() => scrollToSection("contact")}>Contact</li>
         </ul>
         <div className="flex gap-2">
           <button onClick={() => navigate("/login")} className="text-[#0c566e]">Sign In</button>
-          <button onClick={() => navigate("/signup")} className="text-[#0c566e] font-semibold shadow border-1 border-gray-300 rounded w-20 h-7">Sign Up</button>
+          <button onClick={() => navigate("/signup")} className="text-[#0c566e] font-semibold shadow border border-gray-300 rounded px-4 py-1">Sign Up</button>
         </div>
       </div>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center items-center text-center mt-0" data-aos="fade-up">
+      <section id="home" className="min-h-screen flex flex-col justify-center items-center text-center" data-aos="fade-up">
         <img src="/duck.svg" alt="Dev Helper" className="w-20 h-20 mb-6" data-aos="fade-up" />
         <h1 className="text-5xl font-bold text-[#0c566e] mb-4" data-aos="fade-up">Create, Manage and Track</h1>
         <p className="text-xl text-gray-600 mb-8" data-aos="fade-up">
@@ -77,10 +79,21 @@ export default function Welcome() {
       {/* Features Section */}
       <section id="features" className="py-20 bg-gray-100 min-h-screen" data-aos="fade-up">
         <h2 className="text-4xl font-bold text-center text-[#0c566e] mb-10">Features</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4">
-          <FeatureCard title="Project Management" description="Easily manage all your projects in one place." icon="" />
-          <FeatureCard title="Track Deadlines" description="Never miss deadlines with our smart tracking." icon="" />
-          <FeatureCard title="Boost Productivity" description="Optimize your workflow and stay productive." icon="" />
+        <div className="grid gap-6 px-4">
+            <div className=" p-6 rounded-lg shadow-md h-70" data-aos="fade-in">
+              <h3 className="text-lg font-semibold text-[#0c566e] mb-2">Project Management</h3>
+              <p className="text-gray-600 text-sm">Easily manage all your projects in one place.</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition text-center" data-aos="fade-in">
+              <div className="text-5xl mb-3">⏰</div>
+              <h3 className="text-lg font-semibold text-[#0c566e] mb-2">Track Deadlines</h3>
+              <p className="text-gray-600 text-sm">Never miss deadlines with our smart tracking.</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition text-center" data-aos="fade-in">
+              <div className="text-5xl mb-3">🚀</div>
+              <h3 className="text-lg font-semibold text-[#0c566e] mb-2">Boost Productivity</h3>
+              <p className="text-gray-600 text-sm">Optimize your workflow and stay productive.</p>
+            </div>
         </div>
       </section>
 
@@ -99,16 +112,6 @@ export default function Welcome() {
           For support or inquiries, reach us at <a href="mailto:support@devhelper.com" className="text-cyan-600">support@devhelper.com</a>
         </p>
       </section>
-    </div>
-  )
-}
-
-function FeatureCard({ icon, title, description }) {
-  return (
-    <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition text-center" data-aos="fade-in">
-      <div className="text-5xl mb-3">{icon}</div>
-      <h3 className="text-lg font-semibold text-[#0c566e] mb-2">{title}</h3>
-      <p className="text-gray-600 text-sm">{description}</p>
     </div>
   )
 }
