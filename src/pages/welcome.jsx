@@ -140,50 +140,52 @@ export default function Welcome() {
             {/* About Section */}
             <section id="about" className="py-20 min-h-screen flex items-center bg-gradient-to-br from-cyan-50 to-blue-50">
                 <div className="max-w-5xl mx-auto px-4">
-                    <h2 className="text-4xl font-bold text-center text-[#0c566e] mb-12">About Dev Helper</h2>
+                    <h2 className="text-4xl font-bold text-center text-[#0c566e] mb-12" data-aos="fade-in">About Dev Helper</h2>
 
                     <div className="space-y-8">
-                        {/* Introduction */}
-                        <div className="bg-white p-8 rounded-lg shadow-md">
-                            <p className="text-gray-700 leading-relaxed mb-4">
-                                Dev Helper was born from a simple yet powerful idea: developers deserve tools that
-                                understand their workflow. As developers ourselves, we've experienced the chaos of
-                                managing multiple projects, tracking endless deadlines, and switching between countless
-                                tools just to stay organized.
-                            </p>
-                            <p className="text-gray-700 leading-relaxed">
-                                We built Dev Helper to solve this problem - a single, intuitive platform where you can
-                                manage all your development projects without the complexity of traditional project
-                                management software.
-                            </p>
-                        </div>
+                        {/* Introduction overlapping Mission & Vision */}
+                        <div className="relative">
+                            {/* Mission & Vision Background Cards */}
+                            <div className="grid md:grid-cols-2 gap-6 pt-32">
+                                <div className="bg-white p-8 pt-24 rounded-lg shadow-md border-l-4 border-cyan-600">
+                                    <h3 className="text-2xl font-bold text-[#0c566e] mb-4 flex items-center gap-2">
+                                        Our Mission
+                                    </h3>
+                                    <p className="text-gray-700 leading-relaxed">
+                                        To empower developers worldwide with a streamlined project management solution that
+                                        enhances productivity without adding complexity. We believe great tools should fade
+                                        into the background, letting your creativity and code take center stage.
+                                    </p>
+                                </div>
 
-                        {/* Mission & Vision */}
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div className="bg-white p-8 rounded-lg shadow-md border-l-4 border-cyan-600">
-                                <h3 className="text-2xl font-bold text-[#0c566e] mb-4 flex items-center gap-2">
-                                    Our Mission
-                                </h3>
-                                <p className="text-gray-700 leading-relaxed">
-                                    To empower developers worldwide with a streamlined project management solution that
-                                    enhances productivity without adding complexity. We believe great tools should fade
-                                    into the background, letting your creativity and code take center stage.
-                                </p>
+                                <div className="bg-white p-8 pt-24 rounded-lg shadow-md border-l-4 border-blue-600">
+                                    <h3 className="text-2xl font-bold text-[#0c566e] mb-4 flex items-center gap-2">
+                                        Our Vision
+                                    </h3>
+                                    <p className="text-gray-700 leading-relaxed">
+                                        To become the go-to project management platform for developers of all levels - from
+                                        students learning their first programming language to senior engineers managing
+                                        enterprise-level projects. Simple by design, powerful by nature.
+                                    </p>
+                                </div>
                             </div>
 
-                            <div className="bg-white p-8 rounded-lg shadow-md border-l-4 border-blue-600">
-                                <h3 className="text-2xl font-bold text-[#0c566e] mb-4 flex items-center gap-2">
-                                    Our Vision
-                                </h3>
-                                <p className="text-gray-700 leading-relaxed">
-                                    To become the go-to project management platform for developers of all levels - from
-                                    students learning their first programming language to senior engineers managing
-                                    enterprise-level projects. Simple by design, powerful by nature.
+                            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-11/12 md:w-4/5 bg-white/20 backdrop-blur-md p-8 rounded-lg shadow-xl z-10 border border-white/30">
+                                <p className="text-[#0c566e] leading-relaxed mb-4 font-medium">
+                                    Dev Helper was born from a simple yet powerful idea: developers deserve tools that
+                                    understand their workflow. As developers ourselves, we've experienced the chaos of
+                                    managing multiple projects, tracking endless deadlines, and switching between countless
+                                    tools just to stay organized.
+                                </p>
+                                <p className="text-[#0c566e] leading-relaxed font-medium">
+                                    We built Dev Helper to solve this problem - a single, intuitive platform where you can
+                                    manage all your development projects without the complexity of traditional project
+                                    management software.
                                 </p>
                             </div>
                         </div>
 
-                        <div className="bg-white p-8 rounded-lg shadow-md">
+                        {/* <div className="bg-white p-8 rounded-lg shadow-md">
                             <h3 className="text-2xl font-bold text-[#0c566e] mb-6 text-center">What We Stand For</h3>
                             <div className="grid md:grid-cols-3 gap-6">
                                 <div className="text-center">
@@ -236,29 +238,17 @@ export default function Welcome() {
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-
-                        {/* Closing */}
-                        <div className="text-center bg-white p-8 rounded-lg shadow-md">
-                            <p className="text-xl text-gray-700 mb-6">
-                                We're constantly evolving Dev Helper based on your feedback. Our goal isn't to build
-                                the most feature-rich platform - it's to build the most useful one.
-                            </p>
-                            <p className="text-lg font-semibold text-[#0c566e]">
-                                Ready to simplify your project management? Join our growing community of developers
-                                who've reclaimed their time and sanity.
-                            </p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </section>
 
-            {/* Contact Section */}
-            <section id="contact" className="py-20 bg-gray-100 min-h-screen">
+            <section id="contact" className="py-20 bg-gray-100 min-h-screen content-center">
                 <h2 className="text-4xl font-bold text-center text-[#0c566e] mb-10">Contact Us</h2>
                 <p className="text-center text-gray-600 px-4">
                     For support or inquiries, reach us at <a href="mailto:support@devhelper.com" className="text-cyan-600">support@devhelper.com</a>
                 </p>
+                
             </section>
         </div>
     )
