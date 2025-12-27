@@ -45,10 +45,15 @@ export default function Welcome() {
                     <li className="text-[#0c566e] cursor-pointer hover:scale-110 transition duration-300" onClick={() => scrollToSection("about")}>About</li>
                     <li className="text-[#0c566e] cursor-pointer hover:scale-110 transition duration-300" onClick={() => scrollToSection("contact")}>Contact</li>
                 </ul>
-                <div className="flex gap-2">
-                    <button onClick={() => navigate("/login")} className="text-[#0c566e]">Sign In</button>
-                    <button onClick={() => navigate("/signup")} className="text-[#0c566e] font-semibold shadow border border-gray-300 rounded px-4 py-1">Sign Up</button>
-                </div>
+               <div className="flex gap-2">
+  <button onClick={() => navigate("/login")} className="text-[#0c566e] hover:scale-110 transition duration-300">Sign In</button>
+  <button 
+    onClick={() => navigate("/signup")} 
+    className="font-semibold shadow border border-gray-300 rounded px-4 py-1 animate-color-flow bg-gradient-to-r from-[#0c566e] via-cyan-500 to-[#0c566e] bg-[length:200%_100%] text-white"
+  >
+    Sign Up
+  </button>
+</div>
             </div>
 
             {/* Hero Section */}
@@ -61,17 +66,10 @@ export default function Welcome() {
                 <div className="flex gap-4">
                     <button
                         onClick={() => navigate("/signup")}
-                        data-aos="fade-right"
+                        data-aos="zoom-out-up"
                         className="bg-cyan-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-cyan-700 transition shadow-lg"
                     >
                         Get Started
-                    </button>
-                    <button
-                        onClick={() => navigate("/login")}
-                        data-aos="fade-left"
-                        className="bg-white text-[#0c566e] px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg border border-gray-200"
-                    >
-                        Sign In
                     </button>
                 </div>
             </section>
@@ -140,14 +138,14 @@ export default function Welcome() {
             {/* About Section */}
             <section id="about" className="py-20 min-h-screen flex items-center bg-gradient-to-br from-cyan-50 to-blue-50">
                 <div className="max-w-5xl mx-auto px-4">
-                    <h2 className="text-4xl font-bold text-center text-[#0c566e] mb-12" data-aos="fade-in">About Dev Helper</h2>
+                    <h2 className="text-4xl font-bold text-center text-[#0c566e] mb-12" data-aos="fade-up">About Dev Helper</h2>
 
                     <div className="space-y-8">
                         {/* Introduction overlapping Mission & Vision */}
                         <div className="relative">
                             {/* Mission & Vision Background Cards */}
                             <div className="grid md:grid-cols-2 gap-6 pt-32">
-                                <div className="bg-white p-8 pt-24 rounded-lg shadow-md border-l-4 border-cyan-600">
+                                <div className="bg-white p-8 pt-24 rounded-lg shadow-md border-l-4 border-cyan-600" data-aos="fade-right">
                                     <h3 className="text-2xl font-bold text-[#0c566e] mb-4 flex items-center gap-2">
                                         Our Mission
                                     </h3>
@@ -158,7 +156,7 @@ export default function Welcome() {
                                     </p>
                                 </div>
 
-                                <div className="bg-white p-8 pt-24 rounded-lg shadow-md border-l-4 border-blue-600">
+                                <div className="bg-white p-8 pt-24 rounded-lg shadow-md border-l-4 border-blue-600" data-aos="fade-left">
                                     <h3 className="text-2xl font-bold text-[#0c566e] mb-4 flex items-center gap-2">
                                         Our Vision
                                     </h3>
@@ -170,7 +168,7 @@ export default function Welcome() {
                                 </div>
                             </div>
 
-                            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-11/12 md:w-4/5 bg-white/20 backdrop-blur-md p-8 rounded-lg shadow-xl z-10 border border-white/30">
+                            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-11/12 md:w-4/5 bg-white/20 backdrop-blur-md p-8 rounded-lg shadow-xl z-10 border border-white/30" data-aos="zoom-in-up">
                                 <p className="text-[#0c566e] leading-relaxed mb-4 font-medium">
                                     Dev Helper was born from a simple yet powerful idea: developers deserve tools that
                                     understand their workflow. As developers ourselves, we've experienced the chaos of
@@ -244,9 +242,9 @@ export default function Welcome() {
             </section>
 
             <section id="contact" className="py-20 bg-gray-100 min-h-screen content-center">
-                <h2 className="text-4xl font-bold text-center text-[#0c566e] mb-10">Contact Us</h2>
+                <h2 className="text-4xl font-bold text-center text-[#0c566e] mb-10"  data-aos='zoom-in'>Contact Us</h2>
                 <p className="text-center text-gray-600 px-4">
-                    For support or inquiries, reach us at <a href="mailto:support@devhelper.com" className="text-cyan-600">support@devhelper.com</a>
+                    For support or inquiries, reach us at <a href="mailto:support@devhelper.com" className="text-cyan-600"  data-aos='zoom-in'>support@devhelper.com</a>
                 </p>
                 
             </section>

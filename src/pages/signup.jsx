@@ -50,8 +50,11 @@ export default function Signup() {
       <div className="absolute inset-0 bg-gradient-to-br from-[#0c566e] via-[#0c566e]/85 to-[#0c566e]/90 animate-gradient-bg bg-[length:400%_400%]"></div>
       
       {/* Signup Form */}
-      <form onSubmit={handleSignup} className="relative z-10 max-w-md w-full mx-4 space-y-4 bg-white p-8 rounded-lg shadow-xl">
-        <div className="text-center mb-6">
+      <form onSubmit={handleSignup} className="relative z-10 max-w-md w-sm mx-4 space-y-4 bg-white p-8 rounded-lg shadow-xl">
+        <div className="flex justify-center">
+        <a href="/"><img src="/duck.svg" alt="Dev helper" className="w-24 h-24"/></a>
+      </div>
+        <div className="text-center">
           <h2 className="text-3xl font-bold text-[#0c566e]">Create Account</h2>
           <p className="text-gray-600 mt-2">Join Dev Helper today</p>
         </div>

@@ -19,3 +19,19 @@
 .animate-gradient-bg {
   animation: gradient-bg 8s ease infinite;
 }
+
+@keyframes color-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-color-flow {
+  animation: color-flow 3s ease infinite;
+}
