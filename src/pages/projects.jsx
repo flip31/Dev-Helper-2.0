@@ -134,7 +134,6 @@ export default function Projects() {
         />
       )}
 
-      {/* View Modal */}
       {viewingProject && (
         <ViewProject
           project={viewingProject}
@@ -152,7 +151,7 @@ export default function Projects() {
 
 function ProjectCard({ project, onView, onEdit, onDelete }) {
   return (
-    <div className="bg-white p-5 rounded-lg shadow hover:shadow-xl transition">
+    <div className="bg-white p-5 rounded-lg shadow hover:shadow-xl transition flex flex-col">
       <div className="flex justify-between items-center mb-2">
         <h2 className="text-lg font-semibold">{project.title}</h2>
         <span
@@ -168,32 +167,33 @@ function ProjectCard({ project, onView, onEdit, onDelete }) {
         </span>
       </div>
 
-      <p className="text-sm text-[#0c566e] line-clamp-3 mb-3">
+      <p className="text-sm text-[#0c566e] line-clamp-3 mb-auto">
         {project.description || "No description"}
       </p>
 
-      <div className="mt-3 text-xs text-gray-500 flex justify-between mb-3">
+      {/* Type and Deadline - Above buttons */}
+      <div className="mt-4 text-xs text-gray-500 flex justify-between mb-3 border-t pt-3">
         <span className="font-medium capitalize">{project.type}</span>
         <span>{project.deadline ? new Date(project.deadline).toLocaleDateString() : "No deadline"}</span>
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-2 border-t pt-3">
+      <div className="flex gap-2">
         <button
           onClick={onView}
-          className="flex-1 text-[#0c566e] border border-[#0c566e] py-1 rounded hover:bg-[#0c566e] hover:text-white transition text-sm"
+          className="flex-1 text-[#0c566e] shadow-sm shadow-[#0c566e]/30 py-1 rounded hover:bg-[#0c566e] hover:text-white transition text-sm"
         >
           View
         </button>
         <button
           onClick={onEdit}
-          className="flex-1 text-blue-600 border border-blue-600 py-1 rounded hover:bg-blue-600 hover:text-white transition text-sm"
+          className="flex-1 text-blue-600 shadow-sm shadow-blue-600/30 py-1 rounded hover:bg-blue-600 hover:text-white transition text-sm"
         >
           Edit
         </button>
         <button
           onClick={onDelete}
-          className="flex-1 text-red-600 border border-red-600 py-1 rounded hover:bg-red-600 hover:text-white transition text-sm"
+          className="flex-1 text-red-600 shadow-sm shadow-red-600/30 py-1 rounded hover:bg-red-600 hover:text-white transition text-sm"
         >
           Delete
         </button>

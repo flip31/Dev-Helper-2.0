@@ -1,8 +1,8 @@
-// pages/Dashboard.jsx
 import { useEffect, useState } from "react"
 import { useOutletContext } from "react-router-dom"
 import { supabase } from "../services/supabase"
 import AddProject from "../components/addProject"
+import { BellIcon } from "@heroicons/react/24/outline"
 
 
 export default function Dashboard() {
@@ -48,22 +48,16 @@ export default function Dashboard() {
   return (
     <main className="flex-1 p-8 text-[#0c566e] overflow-y-auto">
 
-    <div className="flex flex-row">
+    <div className="flex flex-row justify-between">
         <p>{showDate()}</p>
-        <div>
-            
+        <div>  
+            <BellIcon className="w-5 h-5" />
         </div>
     </div>
 
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">{getGreetings()}</h1>
-        <button
-          onClick={() => setShowAddProject(true)}
-          className="bg-cyan-600 text-white px-5 py-2 rounded-md hover:bg-cyan-700"
-        >
-          New Project
-        </button>
       </div>
 
       {/* Add Project */}
