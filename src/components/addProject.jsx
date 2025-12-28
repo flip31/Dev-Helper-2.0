@@ -1,14 +1,14 @@
 import { useState } from "react"
 import { supabase } from "../services/supabase"
 
-
 export default function AddProject({ onProjectAdded }) {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [deadline, setDeadline] = useState("")
-  const [status, setStatus] = useState("planned") // <-- default lowercase
-  const [type, setType] = useState("personal")   // default type
+  const [status, setStatus] = useState("planned")
+  const [type, setType] = useState("personal")
   const [loading, setLoading] = useState(false)
+
   const [clientName, setClientName] = useState("")
   const [clientNumber, setClientNumber] = useState("")
   const [clientEmail, setClientEmail] = useState("")
@@ -20,63 +20,75 @@ export default function AddProject({ onProjectAdded }) {
     e.preventDefault()
     setLoading(true)
 
-    // Get current session
-    const { data: { session }, error: sessionError } = await supabase.auth.getSession()
-    if (sessionError) {
-      alert(sessionError.message)
-      setLoading(false)
-      return
-    }
+    try {
 
-    const user = session?.user
-    if (!user) {
-      alert("You must be logged in")
-      setLoading(false)
-      return
-    }
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession()
 
-    // Validate status and type
-    const projectStatus = validStatus.includes(status) ? status : "planned"
-    const projectType = validType.includes(type) ? type : "personal"
+      if (sessionError) throw sessionError
+      if (!session?.user) throw new Error("You must be logged in")
 
-    const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log({
-      type,
-      clientName: type === "client" ? clientName : null,
-      clientNumber: type === "client" ? clientNumber : null,
-      clientEmail: type === "client" ? clientEmail : null
-    })
-  }
+      const user = session.user
 
-    // Insert project
-    const { data, error } = await supabase
-      .from("projects")
-      .insert([
-        {
+      const projectStatus = validStatus.includes(status) ? status : "planned"
+      const projectType = validType.includes(type) ? type : "personal"
+
+      let clientId = null
+
+      if (projectType === "client") {
+        if (!clientName.trim()) {
+          throw new Error("Client name is required")
+        }
+
+        const { data: client, error: clientError } = await supabase
+          .from("clients")
+          .insert({
+            user_id: user.id,
+            name: clientName.trim(),
+            email: clientEmail.trim() || null,
+            phone: clientNumber.trim() || null,
+          })
+          .select()
+          .single()
+
+        if (clientError) throw clientError
+
+        clientId = client.id
+      }
+
+      const { data: project, error: projectError } = await supabase
+        .from("projects")
+        .insert({
           user_id: user.id,
           title: title.trim() || "Untitled Project",
           description: description.trim() || null,
           deadline: deadline || null,
           status: projectStatus,
           type: projectType,
-        },
-      ])
-      .select()
+          client_id: clientId,
+        })
+        .select()
+        .single()
 
-    if (error) {
-      alert("Error adding project: " + error.message)
-    } else {
-      // Clear form
+      if (projectError) throw projectError
+
       setTitle("")
       setDescription("")
       setDeadline("")
       setStatus("planned")
       setType("personal")
-      onProjectAdded(data[0])
-    }
+      setClientName("")
+      setClientNumber("")
+      setClientEmail("")
 
-    setLoading(false)
+      onProjectAdded(project)
+    } catch (err) {
+      alert(err.message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -84,7 +96,7 @@ export default function AddProject({ onProjectAdded }) {
       onSubmit={handleSubmit}
       className="bg-white p-6 rounded-lg shadow space-y-4"
     >
-      <h2 className="text-2xl font-bold mb-4">Add New Project</h2>
+      <h2 className="text-2xl font-bold">Add New Project</h2>
 
       <input
         type="text"
@@ -109,7 +121,6 @@ export default function AddProject({ onProjectAdded }) {
         onChange={(e) => setDeadline(e.target.value)}
       />
 
-      {/* Status dropdown */}
       <select
         className="w-full border p-2 rounded"
         value={status}
@@ -117,12 +128,11 @@ export default function AddProject({ onProjectAdded }) {
       >
         {validStatus.map((s) => (
           <option key={s} value={s}>
-            {s.charAt(0).toUpperCase() + s.slice(1)} {/* Display capitalized */}
+            {s.charAt(0).toUpperCase() + s.slice(1)}
           </option>
         ))}
       </select>
 
-      {/* Type dropdown */}
       <select
         className="w-full border p-2 rounded"
         value={type}
@@ -135,51 +145,38 @@ export default function AddProject({ onProjectAdded }) {
         ))}
       </select>
 
-      {
-        type === "client" && (
-          <div className="space-y-3">
-            <div>
-              <label htmlFor="clientName">Client Name:</label>
-              <input
-                type="text"
-                id="clientName"
-                placeholder="Client Name"
-                className="w-full border p-2 rounded"
-                value={clientName}
-                onChange={(e) => setClientName(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="clientNumber">Client Number:</label>
-              <input
-                type="tel"
-                id="clientNumber"
-                placeholder="Client Number"
-                className="w-full border p-2 rounded"
-                value={clientNumber}
-                onChange={(e) => setClientNumber(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="clientEmail">Client Email:</label>
-              <input
-                type="email"
-                id="clientEmail"
-                placeholder="Client Email"
-                className="w-full border p-2 rounded"
-                value={clientEmail}
-                onChange={(e) => setClientEmail(e.target.value)}
-              />
-            </div>
-          </div>
-        )
-      }
+      {type === "client" && (
+        <div className="space-y-3">
+          <input
+            type="text"
+            placeholder="Client Name"
+            className="w-full border p-2 rounded"
+            value={clientName}
+            onChange={(e) => setClientName(e.target.value)}
+            required
+          />
 
-      {}
+          <input
+            type="tel"
+            placeholder="Client Phone"
+            className="w-full border p-2 rounded"
+            value={clientNumber}
+            onChange={(e) => setClientNumber(e.target.value)}
+          />
+
+          <input
+            type="email"
+            placeholder="Client Email"
+            className="w-full border p-2 rounded"
+            value={clientEmail}
+            onChange={(e) => setClientEmail(e.target.value)}
+          />
+        </div>
+      )}
 
       <button
         type="submit"
-        className="w-full bg-cyan-600 py-2 rounded text-white"
+        className="w-full bg-cyan-600 text-white py-2 rounded disabled:opacity-60"
         disabled={loading}
       >
         {loading ? "Adding..." : "Add Project"}
