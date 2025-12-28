@@ -38,17 +38,18 @@ export default function ViewProject({ project, onClose, onEdit, onDelete }) {
             </div>
           </div>
 
-          {project.type === "client" && (project.client_name || project.client_number) && (
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <h3 className="text-sm font-semibold text-[#0c566e] mb-2">Client Information</h3>
-              {project.client_name && (
-                <p className="text-gray-700"><strong>Name:</strong> {project.client_name}</p>
-              )}
-              {project.client_number && (
-                <p className="text-gray-700"><strong>Phone:</strong> {project.client_number}</p>
-              )}
-            </div>
-          )}
+          {project.type === "client" && project.clients && (
+  <div className="bg-gray-50 p-4 rounded-lg">
+    <h3 className="text-sm font-semibold text-[#0c566e] mb-2">Client Information</h3>
+    <p className="text-gray-700"><strong>Name:</strong> {project.clients.name}</p>
+    {project.clients.email && (
+      <p className="text-gray-700"><strong>Email:</strong> {project.clients.email}</p>
+    )}
+    {project.clients.phone && (
+      <p className="text-gray-700"><strong>Phone:</strong> {project.clients.phone}</p>
+    )}
+  </div>
+)}
 
           <div>
             <h3 className="text-sm font-semibold text-[#0c566e] mb-1">Created</h3>

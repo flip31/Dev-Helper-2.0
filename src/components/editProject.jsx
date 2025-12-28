@@ -7,41 +7,57 @@ export default function EditProject({ project, onClose, onUpdated }) {
   const [status, setStatus] = useState(project.status)
   const [deadline, setDeadline] = useState(project.deadline || "")
   const [type, setType] = useState(project.type)
-  const [clientName, setClientName] = useState(project.client_name || "")
-  const [clientNumber, setClientNumber] = useState(project.client_number || "")
   const [loading, setLoading] = useState(false)
 
   const handleSave = async () => {
     setLoading(true)
 
-    const { data, error } = await supabase
-      .from("projects")
-      .update({
-        title,
-        description,
-        status,
-        deadline: deadline || null,
-        type,
-        client_name: type === "client" ? clientName : null,
-        client_number: type === "client" ? clientNumber : null,
-      })
-      .eq("id", project.id)
-      .select()
-      .single()
+    try {
+      const { data, error } = await supabase
+        .from("projects")
+        .update({
+          title,
+          description,
+          status,
+          deadline: deadline || null,
+          type,
+        })
+        .eq("id", project.id)
+        .select(`
+          *,
+          clients (
+            id,
+            name,
+            email,
+            phone
+          )
+        `)
+        .single()
 
-    if (!error) {
+      if (error) throw error
+
+      // Call the callback function to update the parent
       onUpdated(data)
-    } else {
-      alert("Error updating project: " + error.message)
+    } catch (err) {
+      console.error("Error updating project:", err)
+      alert("Error updating project: " + err.message)
+    } finally {
+      setLoading(false)
     }
-
-    setLoading(false)
   }
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white p-6 rounded-lg w-full max-w-lg space-y-4 max-h-[90vh] overflow-y-auto">
-        <h2 className="font-bold text-2xl text-[#0c566e]">Edit Project</h2>
+        <div className="flex justify-between items-center">
+          <h2 className="font-bold text-2xl text-[#0c566e]">Edit Project</h2>
+          <button 
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700 text-2xl"
+          >
+            ×
+          </button>
+        </div>
 
         <div>
           <label className="block text-sm font-medium text-[#0c566e] mb-1">Title</label>
@@ -91,35 +107,18 @@ export default function EditProject({ project, onClose, onUpdated }) {
             className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#0c566e]"
             value={type}
             onChange={(e) => setType(e.target.value)}
+            disabled
           >
             <option value="personal">Personal</option>
             <option value="client">Client</option>
           </select>
+          <p className="text-xs text-gray-500 mt-1">Type cannot be changed after creation</p>
         </div>
 
-        {type === "client" && (
-          <div className="space-y-3 p-4 bg-gray-50 rounded-lg">
-            <h3 className="text-sm font-semibold text-[#0c566e]">Client Information</h3>
-            
-            <div>
-              <label className="block text-sm font-medium text-[#0c566e] mb-1">Client Name</label>
-              <input
-                type="text"
-                className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#0c566e]"
-                value={clientName}
-                onChange={(e) => setClientName(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-[#0c566e] mb-1">Client Phone</label>
-              <input
-                type="tel"
-                className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#0c566e]"
-                value={clientNumber}
-                onChange={(e) => setClientNumber(e.target.value)}
-              />
-            </div>
+        {project.clients && (
+          <div className="bg-gray-50 p-3 rounded">
+            <p className="text-sm font-semibold text-[#0c566e]">Client: {project.clients.name}</p>
+            {project.clients.email && <p className="text-xs text-gray-600">{project.clients.email}</p>}
           </div>
         )}
 
@@ -127,6 +126,7 @@ export default function EditProject({ project, onClose, onUpdated }) {
           <button
             onClick={onClose}
             className="px-4 py-2 text-gray-600 hover:text-gray-800"
+            disabled={loading}
           >
             Cancel
           </button>

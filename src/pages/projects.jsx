@@ -18,7 +18,15 @@ export default function Projects() {
 
     const { data, error } = await supabase
       .from("projects")
-      .select("*")
+      .select(`
+        *,
+        clients (
+          id,
+          name,
+          email,
+          phone
+        )
+      `)
       .eq("user_id", session.user.id)
       .order("created_at", { ascending: false })
 
