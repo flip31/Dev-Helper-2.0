@@ -7,7 +7,9 @@ import { BellIcon } from "@heroicons/react/24/outline"
 
 export default function Dashboard() {
   const [projects, setProjects] = useState([])
+  const [client, setClient] = useState([])
   const { showAddProject, setShowAddProject } = useOutletContext()
+  const [searchQuery, setSearchQuery] = useState("")
 
   const fetchProjects = async () => {
     const { data: { session } } = await supabase.auth.getSession()
@@ -33,9 +35,9 @@ export default function Dashboard() {
 
   const getGreetings = () => {
     const hour = new Date().getHours()
-    if(hour>=5 && hour<12) return "Good Morning"
-    if(hour>=12 && hour<17) return "Good Afternoon"
-    if(hour>=17 && hour<22) return "Good Evening"
+    if (hour >= 5 && hour < 12) return "Good Morning"
+    if (hour >= 12 && hour < 17) return "Good Afternoon"
+    if (hour >= 17 && hour < 22) return "Good Evening"
     return "Good Night"
   }
 
@@ -45,20 +47,68 @@ export default function Dashboard() {
     return today.toLocaleDateString("en-US", options)
   }
 
+
+  const query = searchQuery.toLowerCase()
+
+  const filteredProjects = projects.filter((projects) =>
+    projects.title?.toLowerCase().includes(query) || projects.description?.toLowerCase().includes(query)
+  )
+
+  const filteredClients = client.filter((client) =>
+    client.name?.toLowerCase().includes(query) ||
+    client.email?.toLowerCase().includes(query) ||
+    client.phone?.toLowerCase().includes(query)
+  )
+
+  const searchResults = [
+    ...filteredProjects.map(p => ({ ...p, type: "project" })),
+    ...filteredClients.map(c => ({ ...c, type: "client" }))
+  ]
+
+
   return (
     <main className="flex-1 p-8 text-[#0c566e] overflow-y-auto">
 
-    <div className="flex flex-row justify-between">
-        <p>{showDate()}</p>
-        <div>  
-            <BellIcon className="w-5 h-5" />
+      <div className="flex flex-row justify-between">
+        <div className="flex gap-8 outline-none">
+          <p>{showDate()}</p>
+          <input
+            type="text"
+            placeholder="Search projects or clients..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="border px-4 py-1 rounded-md"
+          />
         </div>
-    </div>
+
+        <div>
+          <BellIcon className="w-5 h-5" />
+        </div>
+      </div>
 
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">{getGreetings()}</h1>
       </div>
+
+      {searchQuery && (
+        <div className="absolute bg-white opacity-95 backdrop-blur-sm shadow-lg rounded-lg w-sm mt-2">
+          {searchResults.length === 0 && (
+            <p className="p-3 text-gray-500">No results found</p>
+          )}
+
+          {searchResults.map((item) => (
+            <div key={item.id} className="p-3 hover:bg-gray-100 cursor-pointer">
+              <p className="font-medium">
+                {item.type === "project" ? item.title : item.name}
+              </p>
+              <p className="text-sm text-gray-500">
+                {item.type === "project" ? "Project" : "Client"}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Add Project */}
       {showAddProject && (
@@ -115,13 +165,12 @@ function ProjectCard({ project }) {
       <div className="flex justify-between items-center mb-2">
         <h2 className="text-lg font-semibold">{project.title}</h2>
         <span
-          className={`text-xs text-white px-2 py-1 rounded-full ${
-            project.status === "completed"
+          className={`text-xs text-white px-2 py-1 rounded-full ${project.status === "completed"
               ? "bg-green-600"
               : project.status === "active"
-              ? "bg-blue-600"
-              : "bg-yellow-600"
-          }`}
+                ? "bg-blue-600"
+                : "bg-yellow-600"
+            }`}
         >
           {project.status}
         </span>

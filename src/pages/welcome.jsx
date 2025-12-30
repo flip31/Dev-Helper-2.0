@@ -45,34 +45,59 @@ export default function Welcome() {
                     <li className="text-[#0c566e] cursor-pointer hover:scale-110 transition duration-300" onClick={() => scrollToSection("about")}>About</li>
                     <li className="text-[#0c566e] cursor-pointer hover:scale-110 transition duration-300" onClick={() => scrollToSection("contact")}>Contact</li>
                 </ul>
-               <div className="flex gap-2">
-  <button onClick={() => navigate("/login")} className="text-[#0c566e] hover:scale-110 transition duration-300">Sign In</button>
-  <button 
-    onClick={() => navigate("/signup")} 
-    className="font-semibold shadow border border-gray-300 rounded px-4 py-1 animate-color-flow bg-gradient-to-r from-[#0c566e] via-cyan-500 to-[#0c566e] bg-[length:200%_100%] text-white"
-  >
-    Sign Up
-  </button>
-</div>
+                <div className="flex gap-2">
+                    <button onClick={() => navigate("/login")} className="text-[#0c566e] cursor-pointer hover:scale-110 transition duration-300">Sign In</button>
+                    <button
+                        onClick={() => navigate("/signup")}
+                        className="font-semibold cursor-pointer shadow border border-gray-300 rounded px-4 py-1 animate-color-flow bg-gradient-to-r from-[#0c566e] via-cyan-500 to-[#0c566e] bg-[length:200%_100%] text-white"
+                    >
+                        Sign Up
+                    </button>
+                </div>
             </div>
 
             {/* Hero Section */}
-            <section id="home" className="min-h-screen flex flex-col justify-center items-center text-center" data-aos="fade-up">
-                <img src="/duck.svg" alt="Dev Helper" className="w-20 h-20 mb-6" data-aos="fade-up" />
-                <h1 className="text-5xl font-bold text-[#0c566e] mb-4" data-aos="fade-up">Create, Manage and Track</h1>
-                <p className="text-xl text-gray-600 mb-8" data-aos="fade-up">
-                    Organize your development projects, track deadlines, and boost your productivity
-                </p>
-                <div className="flex gap-4">
-                    <button
-                        onClick={() => navigate("/signup")}
-                        data-aos="zoom-out-up"
-                        className="bg-cyan-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-cyan-700 transition shadow-lg"
-                    >
-                        Get Started
-                    </button>
-                </div>
-            </section>
+            <section
+  id="home"
+  className="relative min-h-screen flex flex-col justify-center items-center text-center overflow-hidden"
+  data-aos="fade-up"
+>
+  {/* Moving background */}
+  <div className="absolute inset-0 bg-glow"></div>
+
+  {/* Content (unchanged layout) */}
+  <img
+    src="/duck.svg"
+    alt="Dev Helper"
+    className="w-20 h-20 mb-6 relative z-10"
+    data-aos="fade-up"
+  />
+
+  <h1
+    className="text-5xl font-bold text-[#0c566e] mb-4 relative z-10"
+    data-aos="fade-up"
+  >
+    Create, Manage and Track
+  </h1>
+
+  <p
+    className="text-xl text-gray-600 mb-8 relative z-10"
+    data-aos="fade-up"
+  >
+    Organize your development projects, track deadlines, and boost your productivity
+  </p>
+
+  <div className="flex gap-4 relative z-10">
+    <button
+      onClick={() => navigate("/signup")}
+      data-aos="zoom-out-up"
+      className="bg-cyan-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-cyan-700 transition shadow-lg"
+    >
+      Get Started
+    </button>
+  </div>
+</section>
+
 
             {/* Features Section */}
             <section id="features" className="py-20 bg-gray-100 min-h-screen" data-aos="fade-up">
@@ -139,9 +164,9 @@ export default function Welcome() {
                     <h2 className="text-4xl font-bold text-center text-[#0c566e] mb-12" data-aos="fade-up">About Dev Helper</h2>
 
                     <div className="space-y-8">
-                        
+
                         <div className="relative">
-                        
+
                             <div className="grid md:grid-cols-2 gap-6 pt-32">
                                 <div className="bg-white p-8 pt-24 rounded-lg shadow-md border-l-4 border-cyan-600" data-aos="fade-right">
                                     <h3 className="text-2xl font-bold text-[#0c566e] mb-4 flex items-center gap-2">
@@ -240,11 +265,11 @@ export default function Welcome() {
             </section>
 
             <section id="contact" className="py-20 bg-gray-100 min-h-screen content-center">
-                <h2 className="text-4xl font-bold text-center text-[#0c566e] mb-10"  data-aos='zoom-in'>Contact Us</h2>
+                <h2 className="text-4xl font-bold text-center text-[#0c566e] mb-10" data-aos='zoom-in'>Contact Us</h2>
                 <p className="text-center text-gray-600 px-4">
-                    For support or inquiries, reach us at <a href="mailto:support@devhelper.com" className="text-cyan-600"  data-aos='zoom-in'>support@devhelper.com</a>
+                    For support or inquiries, reach us at <a href="mailto:support@devhelper.com" className="text-cyan-600" data-aos='zoom-in'>support@devhelper.com</a>
                 </p>
-                
+
             </section>
         </div>
     )

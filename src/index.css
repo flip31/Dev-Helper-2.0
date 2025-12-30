@@ -35,3 +35,27 @@
 .animate-color-flow {
   animation: color-flow 3s ease infinite;
 }
+
+.bg-glow {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.4), transparent 45%),
+    radial-gradient(circle at 80% 20%, rgba(0, 140, 255, 0.4), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(138, 43, 226, 0.4), transparent 45%),
+    radial-gradient(circle at 70% 60%, rgba(255, 0, 128, 0.4), transparent 45%);
+
+  background-size: 200% 200%;
+  filter: blur(90px);
+  animation: glowMove 20s linear infinite;
+}
+
+@keyframes glowMove {
+  0% {
+    background-position: 0% 50%, 100% 50%, 50% 100%, 80% 0%;
+  }
+  50% {
+    background-position: 100% 50%, 0% 50%, 60% 0%, 20% 100%;
+  }
+  100% {
+    background-position: 0% 50%, 100% 50%, 50% 100%, 80% 0%;
+  }
+}
